@@ -1,6 +1,5 @@
 library responsive_grid;
 
-
 import 'package:flutter/widgets.dart';
 
 //
@@ -11,7 +10,7 @@ enum _GridTier { xs, sm, md, lg, xl }
 
 _GridTier _currentSize(BuildContext context) {
   MediaQueryData mediaQueryData = MediaQuery.of(context);
-  double width =  mediaQueryData.size.width;
+  double width = mediaQueryData.size.width;
 
 //  print(
 //      "INFO orientation: ${mediaQueryData.orientation} , width: ${mediaQueryData.size.width}, height: ${mediaQueryData.size.height}");
@@ -115,16 +114,20 @@ class ResponsiveGridCol extends StatelessWidget {
 class ResponsiveGridList extends StatelessWidget {
   final double desiredItemWidth, minSpacing;
   final List<Widget> children;
-  final bool squareCells;
+  final bool squareCells, scroll;
 
-  ResponsiveGridList({this.desiredItemWidth, this.minSpacing, this.squareCells = false, this.children});
+  ResponsiveGridList(
+      {this.desiredItemWidth,
+      this.minSpacing,
+      this.squareCells = false,
+      this.scroll = true,
+      this.children});
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-
-        if(children.length == 0) return Container();
+        if (children.length == 0) return Container();
 
         double width = constraints.maxWidth;
 
@@ -149,28 +152,59 @@ class ResponsiveGridList extends StatelessWidget {
           spacing = (width - itemWidth * n) / (n + 1);
         }
 
-        return ListView.separated(
-            itemCount: (children.length / n).ceil(),
-            separatorBuilder: (context, index) {
-              return SizedBox(
-                height: minSpacing,
-              );
-            },
-            itemBuilder: (context, index) {
-              if (index * n >= children.length) return null;
-              //
-              var rowChildren = List<Widget>();
-              for (int i = index * n; i < (index + 1) * n; i++) {
-                if (i >= children.length) break;
-                rowChildren.add(children[i]);
-              }
-              return _ResponsiveGridListItem(
-                itemWidth: itemWidth,
-                spacing: spacing,
-                squareCells: squareCells,
-                children: rowChildren,
-              );
-            });
+        if (scroll) {
+          return ListView.separated(
+              itemCount: (children.length / n).ceil(),
+              separatorBuilder: (context, index) {
+                return SizedBox(
+                  height: minSpacing,
+                );
+              },
+              itemBuilder: (context, index) {
+                if (index * n >= children.length) return null;
+                //
+                var rowChildren = List<Widget>();
+                for (int i = index * n; i < (index + 1) * n; i++) {
+                  if (i >= children.length) break;
+                  rowChildren.add(children[i]);
+                }
+                return _ResponsiveGridListItem(
+                  itemWidth: itemWidth,
+                  spacing: spacing,
+                  squareCells: squareCells,
+                  children: rowChildren,
+                );
+              });
+        } else {
+          var rows = List<Widget>();
+          rows.add(SizedBox(
+            height: minSpacing,
+          ));
+          //
+          for (int j = 0; j < (children.length / n).ceil(); j++) {
+            var rowChildren = List<Widget>();
+            //
+            for (int i = j * n; i < (j + 1) * n; i++) {
+              if (i >= children.length) break;
+              rowChildren.add(children[i]);
+            }
+            //
+            rows.add(_ResponsiveGridListItem(
+              itemWidth: itemWidth,
+              spacing: spacing,
+              squareCells: squareCells,
+              children: rowChildren,
+            ));
+
+            rows.add(SizedBox(
+              height: minSpacing,
+            ));
+          }
+
+          return Column(
+            children: rows,
+          );
+        }
       },
     );
   }
@@ -181,7 +215,8 @@ class _ResponsiveGridListItem extends StatelessWidget {
   final List<Widget> children;
   final bool squareCells;
 
-  _ResponsiveGridListItem({this.itemWidth, this.spacing, this.squareCells, this.children});
+  _ResponsiveGridListItem(
+      {this.itemWidth, this.spacing, this.squareCells, this.children});
 
   @override
   Widget build(BuildContext context) {
@@ -202,7 +237,7 @@ class _ResponsiveGridListItem extends StatelessWidget {
     children.forEach((child) {
       list.add(SizedBox(
         width: itemWidth,
-        height: squareCells? itemWidth : null,
+        height: squareCells ? itemWidth : null,
         child: child,
       ));
       list.add(SizedBox(
