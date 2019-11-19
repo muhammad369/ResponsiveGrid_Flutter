@@ -1,4 +1,4 @@
-## [1.1.1] - Nov 9, 2019
+## [1.1.1] - Nov 19, 2019
 
 * (beta) use the scale() global function to scale font size, margin, padding, width, etc, but you must call initScaling() before
 
