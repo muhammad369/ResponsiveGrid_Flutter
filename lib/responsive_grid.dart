@@ -104,7 +104,7 @@ class ResponsiveGridRow extends StatelessWidget {
       ));
     }
 
-    return Column(
+    return ListView(
       children: rows,
     );
   }
@@ -230,7 +230,7 @@ class ResponsiveGridList extends StatelessWidget {
             ));
           }
 
-          return Column(
+          return ListView(
             children: rows,
           );
         }
