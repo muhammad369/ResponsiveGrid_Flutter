@@ -62,8 +62,10 @@ int _totalSegments = 12;
 
 class ResponsiveGridRow extends StatelessWidget {
   final List<ResponsiveGridCol> children;
+  final CrossAxisAlignment crossAxisAlignment;
 
-  ResponsiveGridRow({@required this.children});
+  ResponsiveGridRow({@required this.children,
+    this.crossAxisAlignment= CrossAxisAlignment.start});
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +102,7 @@ class ResponsiveGridRow extends StatelessWidget {
         ));
       }
       rows.add(Row(
+        crossAxisAlignment: this.crossAxisAlignment,
         children: cols,
       ));
     }
@@ -144,13 +147,15 @@ class ResponsiveGridList extends StatelessWidget {
   final double desiredItemWidth, minSpacing;
   final List<Widget> children;
   final bool squareCells, scroll;
+  final MainAxisAlignment rowMainAxisAlignment;
 
   ResponsiveGridList(
       {this.desiredItemWidth,
       this.minSpacing,
       this.squareCells = false,
       this.scroll = true,
-      this.children});
+      this.children,
+        this.rowMainAxisAlignment= MainAxisAlignment.start});
 
   @override
   Widget build(BuildContext context) {
@@ -198,6 +203,7 @@ class ResponsiveGridList extends StatelessWidget {
                   rowChildren.add(children[i]);
                 }
                 return _ResponsiveGridListItem(
+                  mainAxisAlignment: this.rowMainAxisAlignment,
                   itemWidth: itemWidth,
                   spacing: spacing,
                   squareCells: squareCells,
@@ -219,6 +225,7 @@ class ResponsiveGridList extends StatelessWidget {
             }
             //
             rows.add(_ResponsiveGridListItem(
+              mainAxisAlignment: this.rowMainAxisAlignment,
               itemWidth: itemWidth,
               spacing: spacing,
               squareCells: squareCells,
@@ -243,15 +250,17 @@ class _ResponsiveGridListItem extends StatelessWidget {
   final double spacing, itemWidth;
   final List<Widget> children;
   final bool squareCells;
+  final MainAxisAlignment mainAxisAlignment;
 
   _ResponsiveGridListItem(
-      {this.itemWidth, this.spacing, this.squareCells, this.children});
+      {this.itemWidth, this.spacing, this.squareCells, this.children,
+        this.mainAxisAlignment= MainAxisAlignment.start});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: this.mainAxisAlignment,
       children: _buildChildren(),
     );
   }

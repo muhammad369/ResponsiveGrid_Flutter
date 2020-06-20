@@ -1,3 +1,9 @@
+
+## [1.2.0] - Jun 20, 2020
+
+* added property `ResponsiveGridRow.crossAxisAlignment` default value `CrossAxisAlignment.start`
+* added property `ResponsiveGridList.rowMainAxisAlignment` default value `MainAxisAlignment.start`
+
 ## [1.1.1] - Nov 19, 2019
 
 * (beta) use the scale() global function to scale font size, margin, padding, width, etc, but you must call initScaling() before

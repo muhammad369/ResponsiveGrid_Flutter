@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
@@ -38,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildGridList() {
     return ResponsiveGridList(
+        rowMainAxisAlignment: MainAxisAlignment.center,
         desiredItemWidth: 100,
         minSpacing: 10,
         children: [
@@ -131,4 +133,33 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
   }
+
+  Widget _buildGridLayout_testCrossAlign() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        ResponsiveGridRow(
+          children: [
+            ResponsiveGridCol(
+
+              xs: 6,
+              child: Column(
+                children: [
+                  Container(height: 100, color: Colors.blue, margin: EdgeInsets.all(10),),// height 100px
+                  Container(height: 100, color: Colors.blueGrey, margin: EdgeInsets.all(10),) // height 100px
+                ],
+              ),
+            ),
+            ResponsiveGridCol(
+
+              xs: 6,
+              child: Container(height: 400, color: Colors.black45, margin: EdgeInsets.all(10),), // height 500px
+            )
+          ],
+        ),
+
+      ],
+    );
+  }
+
 }
