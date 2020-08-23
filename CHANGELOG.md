@@ -1,7 +1,7 @@
 
 ## [1.2.1] - Aug 23, 2020
 
-* added property `ResponsiveGridList` uses ` ListView.builder` for better performance 
+* `ResponsiveGridList` uses ` ListView.builder` for better performance 
 
 ## [1.2.0] - Jun 20, 2020
 
