@@ -187,17 +187,20 @@ class ResponsiveGridList extends StatelessWidget {
         }
 
         if (scroll) {
-          return ListView.separated(
-              itemCount: (children.length / n).ceil(),
-              separatorBuilder: (context, index) {
-                return SizedBox(
-                  height: minSpacing,
-                );
-              },
+          return ListView.builder(
+              itemCount: (children.length / n).ceil() * 2 - 1,
+
               itemBuilder: (context, index) {
-                if (index * n >= children.length) return null;
-                //
+                //if (index * n >= children.length) return null;
+                //separator
+                if(index % 2 == 1){
+                  return SizedBox(
+                    height: minSpacing,
+                  );
+                }
+                //item
                 var rowChildren = List<Widget>();
+                index = index ~/ 2;
                 for (int i = index * n; i < (index + 1) * n; i++) {
                   if (i >= children.length) break;
                   rowChildren.add(children[i]);
