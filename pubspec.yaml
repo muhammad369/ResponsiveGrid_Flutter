@@ -1,6 +1,6 @@
 name: responsive_grid
 description: Responsive Grid Layout and List for Flutter
-version: 1.2.1+1
+version: 2.0.0-nullsafety.0
 author: Mohamed Selim <mohamed.selim.6028@gmail.com>
 homepage: https://github.com/mohamed-selim-a/ResponsiveGrid_Flutter
 
