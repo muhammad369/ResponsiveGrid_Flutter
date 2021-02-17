@@ -3,7 +3,7 @@
 * Migrate to null safety
 
 - **BREAKING CHANGES:**
-    - Properties `desiredItemWidth`, `minSpacing` and `children` of `ResponsiveGridList` are now required
+    - Properties `desiredItemWidth` and `children` of `ResponsiveGridList` are now set as required
 
 ## [1.2.1] - Aug 23, 2020
 

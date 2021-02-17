@@ -150,7 +150,7 @@ class ResponsiveGridList extends StatelessWidget {
 
   ResponsiveGridList({
     required this.desiredItemWidth,
-    required this.minSpacing,
+    this.minSpacing = 1,
     this.squareCells = false,
     this.scroll = true,
     required this.children,
