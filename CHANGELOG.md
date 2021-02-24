@@ -1,4 +1,4 @@
-## [2.0.0-nullsafety.0] - Feb 10, 2021
+## [2.0.0] - Feb 24, 2021
 
 * Migrate to null safety
 
