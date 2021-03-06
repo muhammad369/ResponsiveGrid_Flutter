@@ -2,9 +2,6 @@
 
 * Migrate to null safety
 
-- **BREAKING CHANGES:**
-    - Properties `desiredItemWidth` and `children` of `ResponsiveGridList` are now set as required
-
 ## [1.2.1] - Aug 23, 2020
 
 * `ResponsiveGridList` uses ` ListView.builder` for better performance 

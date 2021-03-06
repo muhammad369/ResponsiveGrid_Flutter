@@ -116,8 +116,14 @@ class ResponsiveGridCol extends StatelessWidget {
   final _config = <int?>[]..length = 5;
   final Widget child;
 
-  ResponsiveGridCol(
-      {int xs = 12, int? sm, int? md, int? lg, int? xl, required this.child}) {
+  ResponsiveGridCol({
+    int xs = 12,
+    int? sm,
+    int? md,
+    int? lg,
+    int? xl,
+    required this.child,
+  }) {
     _config[_GridTier.xs.index] = xs;
     _config[_GridTier.sm.index] = sm ?? _config[_GridTier.xs.index];
     _config[_GridTier.md.index] = md ?? _config[_GridTier.sm.index];
