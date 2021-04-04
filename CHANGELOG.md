@@ -1,3 +1,8 @@
+## [1.3.0] - Apr 4, 2021
+
+* `ResponsiveGridRow` now has property `rowSegments`, 12 by default
+instead of dividing the columns in a `ResponsiveGridRow` to 12 segments
+you can now set the number of segments as you like
 
 ## [1.2.1] - Aug 23, 2020
 
