@@ -1,3 +1,7 @@
+## [2.0.0] - Apr 5, 2021
+
+* Migrate to null safety
+
 ## [1.3.0] - Apr 4, 2021
 
 * `ResponsiveGridRow` now has property `rowSegments`, 12 by default
