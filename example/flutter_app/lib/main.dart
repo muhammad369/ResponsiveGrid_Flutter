@@ -6,7 +6,7 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
 
-  Widget homeWidget;
+  final Widget? homeWidget;
 
   MyApp({this.homeWidget});
 

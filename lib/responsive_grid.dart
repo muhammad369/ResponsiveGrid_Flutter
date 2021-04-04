@@ -73,7 +73,7 @@ class ResponsiveGridRow extends StatelessWidget {
     var cols = <Widget>[];
 
     children.forEach((col) {
-      var colWidth = col.currentConfig(context);
+      var colWidth = col.currentConfig(context) ?? 1;
       //
       if (accumulatedWidth + colWidth > rowSegments) {
         if (accumulatedWidth < rowSegments) {
@@ -137,7 +137,7 @@ class ResponsiveGridCol extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: currentConfig(context) ?? 0,
+      flex: currentConfig(context) ?? 1,
       child: child,
     );
   }
