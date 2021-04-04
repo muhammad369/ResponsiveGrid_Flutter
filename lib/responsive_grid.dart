@@ -2,7 +2,6 @@ library responsive_grid;
 
 import 'package:flutter/widgets.dart';
 
-
 //
 // scaling
 //
@@ -13,8 +12,7 @@ double _refWidth = 375;
 double _scalingFactor = null;
 double _width = null;
 
-
-void initScaling(BuildContext context){
+void initScaling(BuildContext context) {
   var mq = MediaQuery.of(context);
   _width = mq.size.width < mq.size.height ? mq.size.width : mq.size.height;
   _scalingFactor = _width / _refWidth;
@@ -22,14 +20,13 @@ void initScaling(BuildContext context){
   print("width => $_width");
 }
 
-double scale(double dimension){
-  if (_width == null){
+double scale(double dimension) {
+  if (_width == null) {
     throw Exception("You must call init() before any use of scale()");
   }
   //
   return dimension * _scalingFactor;
 }
-
 
 //
 // responsive grid layout
@@ -58,14 +55,15 @@ _GridTier _currentSize(BuildContext context) {
   }
 }
 
-int _totalSegments = 12;
-
 class ResponsiveGridRow extends StatelessWidget {
   final List<ResponsiveGridCol> children;
   final CrossAxisAlignment crossAxisAlignment;
+  final int rowSegments;
 
-  ResponsiveGridRow({@required this.children,
-    this.crossAxisAlignment= CrossAxisAlignment.start});
+  ResponsiveGridRow(
+      {@required this.children,
+      this.crossAxisAlignment = CrossAxisAlignment.start,
+      this.rowSegments = 12});
 
   @override
   Widget build(BuildContext context) {
@@ -77,10 +75,10 @@ class ResponsiveGridRow extends StatelessWidget {
     children.forEach((col) {
       var colWidth = col.currentConfig(context);
       //
-      if (accumulatedWidth + colWidth > _totalSegments) {
-        if (accumulatedWidth < _totalSegments) {
+      if (accumulatedWidth + colWidth > rowSegments) {
+        if (accumulatedWidth < rowSegments) {
           cols.add(Spacer(
-            flex: _totalSegments - accumulatedWidth,
+            flex: rowSegments - accumulatedWidth,
           ));
         }
         rows.add(Row(
@@ -96,9 +94,9 @@ class ResponsiveGridRow extends StatelessWidget {
     });
 
     if (accumulatedWidth >= 0) {
-      if (accumulatedWidth < _totalSegments) {
+      if (accumulatedWidth < rowSegments) {
         cols.add(Spacer(
-          flex: _totalSegments - accumulatedWidth,
+          flex: rowSegments - accumulatedWidth,
         ));
       }
       rows.add(Row(
@@ -155,7 +153,7 @@ class ResponsiveGridList extends StatelessWidget {
       this.squareCells = false,
       this.scroll = true,
       this.children,
-        this.rowMainAxisAlignment= MainAxisAlignment.start});
+      this.rowMainAxisAlignment = MainAxisAlignment.start});
 
   @override
   Widget build(BuildContext context) {
@@ -189,11 +187,10 @@ class ResponsiveGridList extends StatelessWidget {
         if (scroll) {
           return ListView.builder(
               itemCount: (children.length / n).ceil() * 2 - 1,
-
               itemBuilder: (context, index) {
                 //if (index * n >= children.length) return null;
                 //separator
-                if(index % 2 == 1){
+                if (index % 2 == 1) {
                   return SizedBox(
                     height: minSpacing,
                   );
@@ -256,8 +253,11 @@ class _ResponsiveGridListItem extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment;
 
   _ResponsiveGridListItem(
-      {this.itemWidth, this.spacing, this.squareCells, this.children,
-        this.mainAxisAlignment= MainAxisAlignment.start});
+      {this.itemWidth,
+      this.spacing,
+      this.squareCells,
+      this.children,
+      this.mainAxisAlignment = MainAxisAlignment.start});
 
   @override
   Widget build(BuildContext context) {

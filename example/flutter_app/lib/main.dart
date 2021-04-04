@@ -5,7 +5,11 @@ import 'package:responsive_grid/responsive_grid.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+
+  Widget homeWidget;
+
+  MyApp({this.homeWidget});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: homeWidget ?? MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -34,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: _buildGridList());
+        body: _buildGridLayout_testCrossAlign());
   }
 
   Widget _buildGridList() {
@@ -65,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
           20
         ].map((i) {
           return Container(
-            height: 100,
+            height: ((i%5) +1) * 100.0,
             alignment: Alignment(0, 0),
             color: Colors.cyan,
             child: Text(i.toString()),
