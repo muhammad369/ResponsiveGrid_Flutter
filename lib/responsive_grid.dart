@@ -55,16 +55,15 @@ _GridTier _currentSize(BuildContext context) {
   }
 }
 
-int _totalSegments = 12;
-
 class ResponsiveGridRow extends StatelessWidget {
   final List<ResponsiveGridCol> children;
   final CrossAxisAlignment crossAxisAlignment;
+  final int rowSegments;
 
-  ResponsiveGridRow({
-    required this.children,
-    this.crossAxisAlignment = CrossAxisAlignment.start,
-  });
+  ResponsiveGridRow(
+      {required this.children,
+      this.crossAxisAlignment = CrossAxisAlignment.start,
+      this.rowSegments = 12});
 
   @override
   Widget build(BuildContext context) {
@@ -74,12 +73,12 @@ class ResponsiveGridRow extends StatelessWidget {
     var cols = <Widget>[];
 
     children.forEach((col) {
-      var colWidth = col.currentConfig(context)!;
+      var colWidth = col.currentConfig(context);
       //
-      if (accumulatedWidth + colWidth > _totalSegments) {
-        if (accumulatedWidth < _totalSegments) {
+      if (accumulatedWidth + colWidth > rowSegments) {
+        if (accumulatedWidth < rowSegments) {
           cols.add(Spacer(
-            flex: _totalSegments - accumulatedWidth,
+            flex: rowSegments - accumulatedWidth,
           ));
         }
         rows.add(Row(
@@ -95,9 +94,9 @@ class ResponsiveGridRow extends StatelessWidget {
     });
 
     if (accumulatedWidth >= 0) {
-      if (accumulatedWidth < _totalSegments) {
+      if (accumulatedWidth < rowSegments) {
         cols.add(Spacer(
-          flex: _totalSegments - accumulatedWidth,
+          flex: rowSegments - accumulatedWidth,
         ));
       }
       rows.add(Row(
@@ -138,7 +137,7 @@ class ResponsiveGridCol extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: currentConfig(context)!,
+      flex: currentConfig(context) ?? 0,
       child: child,
     );
   }
