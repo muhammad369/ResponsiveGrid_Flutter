@@ -1,14 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-
   final Widget? homeWidget;
 
-  MyApp({this.homeWidget});
+  const MyApp({
+    this.homeWidget,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +18,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: homeWidget ?? MyHomePage(title: 'Flutter Demo Home Page'),
+      home: homeWidget ?? const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -69,8 +70,8 @@ class _MyHomePageState extends State<MyHomePage> {
           20
         ].map((i) {
           return Container(
-            height: ((i%5) +1) * 100.0,
-            alignment: Alignment(0, 0),
+            height: ((i % 5) + 1) * 100.0,
+            alignment: const Alignment(0, 0),
             color: Colors.cyan,
             child: Text(i.toString()),
           );
@@ -87,9 +88,9 @@ class _MyHomePageState extends State<MyHomePage> {
               lg: 12,
               child: Container(
                 height: 100,
-                alignment: Alignment(0, 0),
+                alignment: const Alignment(0, 0),
                 color: Colors.purple,
-                child: Text("lg : 12"),
+                child: const Text("lg : 12"),
               ),
             ),
             ResponsiveGridCol(
@@ -97,9 +98,9 @@ class _MyHomePageState extends State<MyHomePage> {
               md: 3,
               child: Container(
                 height: 100,
-                alignment: Alignment(0, 0),
+                alignment: const Alignment(0, 0),
                 color: Colors.green,
-                child: Text("xs : 6 \r\nmd : 3"),
+                child: const Text("xs : 6 \r\nmd : 3"),
               ),
             ),
             ResponsiveGridCol(
@@ -107,9 +108,9 @@ class _MyHomePageState extends State<MyHomePage> {
               md: 3,
               child: Container(
                 height: 100,
-                alignment: Alignment(0, 0),
+                alignment: const Alignment(0, 0),
                 color: Colors.orange,
-                child: Text("xs : 6 \r\nmd : 3"),
+                child: const Text("xs : 6 \r\nmd : 3"),
               ),
             ),
             ResponsiveGridCol(
@@ -117,9 +118,9 @@ class _MyHomePageState extends State<MyHomePage> {
               md: 3,
               child: Container(
                 height: 100,
-                alignment: Alignment(0, 0),
+                alignment: const Alignment(0, 0),
                 color: Colors.red,
-                child: Text("xs : 6 \r\nmd : 3"),
+                child: const Text("xs : 6 \r\nmd : 3"),
               ),
             ),
             ResponsiveGridCol(
@@ -127,9 +128,9 @@ class _MyHomePageState extends State<MyHomePage> {
               md: 3,
               child: Container(
                 height: 100,
-                alignment: Alignment(0, 0),
+                alignment: const Alignment(0, 0),
                 color: Colors.blue,
-                child: Text("xs : 6 \r\nmd : 3"),
+                child: const Text("xs : 6 \r\nmd : 3"),
               ),
             ),
           ],
@@ -145,25 +146,33 @@ class _MyHomePageState extends State<MyHomePage> {
         ResponsiveGridRow(
           children: [
             ResponsiveGridCol(
-
               xs: 6,
               child: Column(
                 children: [
-                  Container(height: 100, color: Colors.blue, margin: EdgeInsets.all(10),),// height 100px
-                  Container(height: 100, color: Colors.blueGrey, margin: EdgeInsets.all(10),) // height 100px
+                  Container(
+                    height: 100,
+                    color: Colors.blue,
+                    margin: const EdgeInsets.all(10),
+                  ), // height 100px
+                  Container(
+                    height: 100,
+                    color: Colors.blueGrey,
+                    margin: const EdgeInsets.all(10),
+                  ) // height 100px
                 ],
               ),
             ),
             ResponsiveGridCol(
-
               xs: 6,
-              child: Container(height: 400, color: Colors.black45, margin: EdgeInsets.all(10),), // height 500px
+              child: Container(
+                height: 400,
+                color: Colors.black45,
+                margin: const EdgeInsets.all(10),
+              ), // height 500px
             )
           ],
         ),
-
       ],
     );
   }
-
 }
