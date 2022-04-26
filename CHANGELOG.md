@@ -1,3 +1,9 @@
+## [2.1.0] - Apr 20, 2022
+
+* Added `ResponsiveGridBreakpoints` for override default breakpoints
+* Added optional `debug` property at `initScaling()` function
+* Added `key` property at `ResponsiveGridRow`, `ResponsiveGridCol`, `ResponsiveGridList` widgets
+
 ## [2.0.0] - Apr 5, 2021
 
 * Migrate to null safety
