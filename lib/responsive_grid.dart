@@ -82,6 +82,7 @@ class ResponsiveGridRow extends StatelessWidget {
           ));
         }
         rows.add(Row(
+          crossAxisAlignment: this.crossAxisAlignment,
           children: cols,
         ));
         // clear
