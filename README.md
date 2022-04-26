@@ -108,5 +108,17 @@ Give every col the width it shall occupy at every size category assuming the tot
 
 ```
 
+### Override breakpoints
+
+Add before attach App widget 
+
+```dart
+ResponsiveGridBreakpoints.value = ResponsiveGridBreakpoints(
+  xs: 600,
+  sm: 905, 
+  md: 1240,
+  lg: 1440,
+);
+```
 
 <img src="https://raw.githubusercontent.com/mohamed-selim-a/ResponsiveGrid_Flutter/master/images/3.jpg" width="300">   <img src="https://raw.githubusercontent.com/mohamed-selim-a/ResponsiveGrid_Flutter/master/images/4.jpg" height="300">
