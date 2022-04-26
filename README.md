@@ -64,7 +64,7 @@ Give every col the width it shall occupy at every size category assuming the tot
 
 ```
 
-<img src="https://raw.githubusercontent.com/mohamed-selim-a/ResponsiveGrid_Flutter/master/images/1.jpg" width="300">   <img src="https://raw.githubusercontent.com/mohamed-selim-a/ResponsiveGrid_Flutter/master/images/2.jpg" height="300">
+<img src="https://raw.githubusercontent.com/muhammad369/ResponsiveGrid_Flutter/master/images/1.jpg" width="300">   <img src="https://raw.githubusercontent.com/muhammad369/ResponsiveGrid_Flutter/master/images/2.jpg" height="300">
 
 
 ### Responsive Grid List
@@ -109,4 +109,4 @@ Give every col the width it shall occupy at every size category assuming the tot
 ```
 
 
-<img src="https://raw.githubusercontent.com/mohamed-selim-a/ResponsiveGrid_Flutter/master/images/3.jpg" width="300">   <img src="https://raw.githubusercontent.com/mohamed-selim-a/ResponsiveGrid_Flutter/master/images/4.jpg" height="300">
+<img src="https://raw.githubusercontent.com/muhammad369/ResponsiveGrid_Flutter/master/images/3.jpg" width="300">   <img src="https://raw.githubusercontent.com/muhammad369/ResponsiveGrid_Flutter/master/images/4.jpg" height="300">

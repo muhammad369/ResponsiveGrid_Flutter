@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: _buildGridList());
+        body: _buildGridLayout_testCrossAlign());
   }
 
   Widget _buildGridList() {
@@ -143,6 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         ResponsiveGridRow(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ResponsiveGridCol(
 
