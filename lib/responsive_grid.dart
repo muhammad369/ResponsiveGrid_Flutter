@@ -226,7 +226,7 @@ class ResponsiveGridList extends StatelessWidget {
         if (scroll) {
           return ListView.builder(
               controller: controller,
-              physics: scrollPhysics,
+              physics: physics,
               shrinkWrap: shrinkWrap,
               itemCount: (children.length / n).ceil() * 2 - 1,
               itemBuilder: (context, index) {
