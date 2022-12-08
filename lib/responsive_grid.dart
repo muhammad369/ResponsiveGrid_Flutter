@@ -179,7 +179,7 @@ class ResponsiveGridList extends StatelessWidget {
   final MainAxisAlignment rowMainAxisAlignment;
   final bool shrinkWrap;
   final ScrollController? controller;
-  final ScrollPhysics? scrollPhysics;
+  final ScrollPhysics? physics;
 
   const ResponsiveGridList({
     required this.desiredItemWidth,
@@ -190,7 +190,7 @@ class ResponsiveGridList extends StatelessWidget {
     this.rowMainAxisAlignment = MainAxisAlignment.start,
     this.shrinkWrap = false,
     this.controller,
-    this.scrollPhysics,
+    this.physics,
     Key? key,
   }) : super(key: key);
 
