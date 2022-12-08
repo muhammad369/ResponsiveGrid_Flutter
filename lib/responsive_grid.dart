@@ -208,8 +208,9 @@ class ResponsiveGridList extends StatelessWidget {
           spacing = minSpacing;
           itemWidth = desiredItemWidth;
         } else {
-          n = N.floor();
-          if (n == 0) {
+          if (N >= 2) {
+            n = N.floor();
+          } else {
             n = 1;
           }
 
