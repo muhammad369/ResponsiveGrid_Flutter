@@ -47,28 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
         rowMainAxisAlignment: MainAxisAlignment.center,
         desiredItemWidth: 100,
         minSpacing: 10,
-        children: [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12,
-          13,
-          14,
-          15,
-          16,
-          17,
-          18,
-          19,
-          20
-        ].map((i) {
+        children: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map((i) {
           return Container(
             height: ((i % 5) + 1) * 100.0,
             alignment: const Alignment(0, 0),
@@ -175,5 +154,15 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ],
     );
+  }
+
+  Widget _resposiveWidgetTest() {
+    return Center(
+        child: const ResponsiveWidget(xs: Text('xs'), sm: Text('sm'), md: Text('md'), lg: Text('lg'), xl: Text('xl')));
+  }
+
+  Widget _resposiveValueTest() {
+    return Center(
+        child: Text(responsiveValue(context, xs: 'xs', lg: 'lg', md: 'md', sm: 'sm', xl: 'xl')));
   }
 }

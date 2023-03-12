@@ -108,6 +108,10 @@ Give every col the width it shall occupy at every size category assuming the tot
 
 ```
 
+### Utilities
+
+`ResponsiveWidget` and `responsiveValue()`
+
 ### Override breakpoints
 
 Add before attach App widget 
