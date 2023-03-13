@@ -60,6 +60,7 @@ Give every col the width it shall occupy at every size category assuming the tot
                 child: Text("xs : 6 \r\nmd : 3"),
               ),
             ),
+          ],
         )
 
 ```
