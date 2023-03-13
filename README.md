@@ -108,9 +108,12 @@ Give every col the width it shall occupy at every size category assuming the tot
 
 ```
 
+<img src="https://raw.githubusercontent.com/muhammad369/ResponsiveGrid_Flutter/master/images/3.jpg" width="300">   <img src="https://raw.githubusercontent.com/muhammad369/ResponsiveGrid_Flutter/master/images/4.jpg" height="300">
+
+
 ### Utilities
 
-`ResponsiveWidget` and `responsiveValue()`
+`ResponsiveWidget` , `ResponsiveBuilder` and `responsiveValue()`
 
 ### Override breakpoints
 
@@ -124,5 +127,3 @@ ResponsiveGridBreakpoints.value = ResponsiveGridBreakpoints(
   lg: 1440,
 );
 ```
-
-<img src="https://raw.githubusercontent.com/muhammad369/ResponsiveGrid_Flutter/master/images/3.jpg" width="300">   <img src="https://raw.githubusercontent.com/muhammad369/ResponsiveGrid_Flutter/master/images/4.jpg" height="300">

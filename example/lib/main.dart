@@ -162,7 +162,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _resposiveValueTest() {
+    return Center(child: Text(responsiveValue(context, xs: 'xs', lg: 'lg', md: 'md', sm: 'sm', xl: 'xl')));
+  }
+
+  Widget _resposiveBuilderTest() {
     return Center(
-        child: Text(responsiveValue(context, xs: 'xs', lg: 'lg', md: 'md', sm: 'sm', xl: 'xl')));
+        child: ResponsiveBuilder(
+            child: const Text('test text', style: TextStyle(fontSize: 30),),
+            xs: (_, child) => Container(alignment: Alignment.topRight, child: child,),
+            sm: (_, child) => Container(alignment: Alignment.topLeft, child: child,),
+            md: (_, child) => Container(alignment: Alignment.center, child: child,),
+            lg: (_, child) => Container(alignment: Alignment.bottomRight, child: child,),
+            xl: (_, child) => Container(alignment: Alignment.bottomLeft, child: child,)));
   }
 }

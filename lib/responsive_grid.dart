@@ -326,47 +326,80 @@ class _ResponsiveGridListItem extends StatelessWidget {
   }
 }
 
-/// a widget for certain tier applies also for larger tier, so you must set xs at least
+/// a widget for certain tier applies also for larger tiers unless overridden, so you must set xs at least
 class ResponsiveWidget extends StatelessWidget {
   final Widget? sm, md, lg, xl;
   final Widget xs;
 
-  const ResponsiveWidget({Key? key, this.lg, this.md, this.sm, this.xl,required this.xs}) : super(key: key);
+  const ResponsiveWidget({Key? key, this.lg, this.md, this.sm, this.xl, required this.xs}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      var w = MediaQuery.of(context).size.width;
-      if(w >= ResponsiveGridBreakpoints.value.xl && xl != null) {
-        return xl!;
-      }
-      if(w >= ResponsiveGridBreakpoints.value.lg && lg != null) {
-        return lg!;
-      }
-      if(w >= ResponsiveGridBreakpoints.value.md && md != null) {
-        return md!;
-      }
-      if(w >= ResponsiveGridBreakpoints.value.sm && sm != null) {
-        return sm!;
-      }
-      return xs;
-    });
+    var w = MediaQuery.of(context).size.width;
+    if (w >= ResponsiveGridBreakpoints.value.lg && xl != null) {
+      return xl!;
+    }
+    if (w >= ResponsiveGridBreakpoints.value.md && lg != null) {
+      return lg!;
+    }
+    if (w >= ResponsiveGridBreakpoints.value.sm && md != null) {
+      return md!;
+    }
+    if (w >= ResponsiveGridBreakpoints.value.xs && sm != null) {
+      return sm!;
+    }
+    return xs;
   }
 }
 
-/// a value for certain tier applies also for larger tier, so you must set xs at least
-T responsiveValue<T>(BuildContext context, {required T xs, T? sm,T? md,  T? lg,T? xl}){
+/// a builder for certain tier applies also for larger tiers, so you must set xs at least
+class ResponsiveBuilder extends StatelessWidget {
+  final Widget child;
+  final Function(BuildContext context, Widget child)? sm, md, lg, xl;
+  final Function(BuildContext context, Widget child) xs;
+
+  const ResponsiveBuilder({
+    Key? key,
+    required this.child,
+    required this.xs,
+    this.sm,
+    this.md,
+    this.lg,
+    this.xl,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var w = MediaQuery.of(context).size.width;
+    if (w >= ResponsiveGridBreakpoints.value.lg && xl != null) {
+      return xl!(context, child);
+    }
+    if (w >= ResponsiveGridBreakpoints.value.md && lg != null) {
+      return lg!(context, child);
+    }
+    if (w >= ResponsiveGridBreakpoints.value.sm && md != null) {
+      return md!(context, child);
+    }
+    if (w >= ResponsiveGridBreakpoints.value.xs && sm != null) {
+      return sm!(context, child);
+    }
+    return xs(context, child);
+  }
+}
+
+/// a value for certain tier applies also for larger tiers unless overridden, so you must set xs at least
+T responsiveValue<T>(BuildContext context, {required T xs, T? sm, T? md, T? lg, T? xl}) {
   var w = MediaQuery.of(context).size.width;
-  if(w >= ResponsiveGridBreakpoints.value.xl && xl != null) {
+  if (w >= ResponsiveGridBreakpoints.value.lg && xl != null) {
     return xl;
   }
-  if(w >= ResponsiveGridBreakpoints.value.lg && lg != null) {
+  if (w >= ResponsiveGridBreakpoints.value.md && lg != null) {
     return lg;
   }
-  if(w >= ResponsiveGridBreakpoints.value.md && md != null) {
+  if (w >= ResponsiveGridBreakpoints.value.sm && md != null) {
     return md;
   }
-  if(w >= ResponsiveGridBreakpoints.value.sm && sm != null) {
+  if (w >= ResponsiveGridBreakpoints.value.xs && sm != null) {
     return sm;
   }
   return xs;
