@@ -212,7 +212,11 @@ class ResponsiveGridList extends StatelessWidget {
           spacing = minSpacing;
           itemWidth = desiredItemWidth;
         } else {
-          n = N.floor();
+          if (N >= 2) {
+            n = N.floor();
+          } else {
+            n = 1;
+          }
 
           double dw = width - (n * (desiredItemWidth + minSpacing) + minSpacing);
 
