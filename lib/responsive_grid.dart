@@ -2,33 +2,6 @@ library responsive_grid;
 
 import 'package:flutter/widgets.dart';
 
-//
-// scaling
-//
-
-double _refWidth = 375;
-
-double? _scalingFactor;
-double? _width;
-
-void initScaling(BuildContext context, {bool debug = false}) {
-  var mq = MediaQuery.of(context);
-  _width = mq.size.width < mq.size.height ? mq.size.width : mq.size.height;
-  _scalingFactor = _width! / _refWidth;
-
-  if (debug) {
-    // ignore: avoid_print
-    print("width => $_width");
-  }
-}
-
-double scale(double dimension) {
-  if (_width == null) {
-    throw Exception("You must call initScaling() before any use of scale()");
-  }
-
-  return dimension * _scalingFactor!;
-}
 
 //
 // responsive grid layout
@@ -335,6 +308,10 @@ class _ResponsiveGridListItem extends StatelessWidget {
     return list;
   }
 }
+
+//
+// Utilities
+//
 
 /// a widget for certain tier applies also for larger tiers unless overridden, so you must set xs at least
 class ResponsiveWidget extends StatelessWidget {

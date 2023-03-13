@@ -1,3 +1,8 @@
+## [2.2.0]
+
+* `ResponsiveWidget` , `ResponsiveBuilder` and `responsiveValue()`
+* some fixes from grateful PRs
+
 ## [2.1.0] - Apr 20, 2022
 
 * Added `ResponsiveGridBreakpoints` for override default breakpoints
