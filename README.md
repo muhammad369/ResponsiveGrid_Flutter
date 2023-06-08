@@ -116,7 +116,7 @@ Give every col the width it shall occupy at every size category assuming the tot
 The same as the `ResponsiveGridList`, but arranges items in columns inside one big row, so every item has independent height
 
 
-<img src="https://raw.githubusercontent.com/muhammad369/ResponsiveGrid_Flutter/master/images/5.jpg" width="300">
+<img src="https://raw.githubusercontent.com/muhammad369/ResponsiveGrid_Flutter/master/images/5.png" width="500">
 
 
 ### Utilities
