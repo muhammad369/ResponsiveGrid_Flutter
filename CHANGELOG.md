@@ -1,4 +1,8 @@
-## [2.2.0]
+## [2.3.0] - Jun 8, 2023
+
+* `ResponsiveStaggeredGridList`
+
+## [2.2.0] - Mar 13, 2023
 
 * `ResponsiveWidget` , `ResponsiveBuilder` and `responsiveValue()`
 * some fixes from grateful PRs

@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: _buildGridLayout_testCrossAlign());
+        body: _buildStaggeredGridList());
   }
 
   Widget _buildGridList() {
@@ -175,4 +175,20 @@ class _MyHomePageState extends State<MyHomePage> {
             lg: (_, child) => Container(alignment: Alignment.bottomRight, child: child,),
             xl: (_, child) => Container(alignment: Alignment.bottomLeft, child: child,)));
   }
+
+  Widget _buildStaggeredGridList() {
+    return ResponsiveStaggeredGridList(
+        //crossAxisAlignment: CrossAxisAlignment.end,
+        desiredItemWidth: 100,
+        minSpacing: 10,
+        children: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map((i) {
+          return Container(
+            height: ((i % 3) + 1) * 100.0,
+            alignment: const Alignment(0, 0),
+            color: Colors.cyan,
+            child: Text(i.toString()),
+          );
+        }).toList());
+  }
+
 }

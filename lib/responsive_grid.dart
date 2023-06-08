@@ -2,7 +2,6 @@ library responsive_grid;
 
 import 'package:flutter/widgets.dart';
 
-
 //
 // responsive grid layout
 //
@@ -219,7 +218,7 @@ class ResponsiveGridList extends StatelessWidget {
                   if (i >= children.length) break;
                   rowChildren.add(children[i]);
                 }
-                return _ResponsiveGridListItem(
+                return _ResponsiveGridListRow(
                   mainAxisAlignment: rowMainAxisAlignment,
                   itemWidth: itemWidth,
                   spacing: spacing,
@@ -241,7 +240,7 @@ class ResponsiveGridList extends StatelessWidget {
               rowChildren.add(children[i]);
             }
             //
-            rows.add(_ResponsiveGridListItem(
+            rows.add(_ResponsiveGridListRow(
               mainAxisAlignment: rowMainAxisAlignment,
               itemWidth: itemWidth,
               spacing: spacing,
@@ -263,13 +262,13 @@ class ResponsiveGridList extends StatelessWidget {
   }
 }
 
-class _ResponsiveGridListItem extends StatelessWidget {
+class _ResponsiveGridListRow extends StatelessWidget {
   final double spacing, itemWidth;
   final List<Widget> children;
   final bool squareCells;
   final MainAxisAlignment mainAxisAlignment;
 
-  const _ResponsiveGridListItem({
+  const _ResponsiveGridListRow({
     required this.itemWidth,
     required this.spacing,
     required this.squareCells,
@@ -306,6 +305,113 @@ class _ResponsiveGridListItem extends StatelessWidget {
     }
 
     return list;
+  }
+}
+
+//
+// ResponsiveStaggeredGridList
+//
+
+class ResponsiveStaggeredGridList extends StatelessWidget {
+  final double desiredItemWidth, minSpacing;
+  final List<Widget> children;
+  final CrossAxisAlignment crossAxisAlignment;
+  final ScrollController? controller;
+  final ScrollPhysics? physics;
+  final bool scroll;
+
+  const ResponsiveStaggeredGridList({
+    required this.desiredItemWidth,
+    this.minSpacing = 1,
+    required this.children,
+    this.crossAxisAlignment = CrossAxisAlignment.start,
+    this.controller,
+    this.physics,
+    this.scroll = true,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (children.isEmpty) return Container();
+
+        double width = constraints.maxWidth;
+
+        double N = (width - minSpacing) / (desiredItemWidth + minSpacing);
+
+        int n;
+        double spacing, itemWidth;
+
+        if (N % 1 == 0) {
+          n = N.floor();
+          spacing = minSpacing;
+          itemWidth = desiredItemWidth;
+        } else {
+          if (N >= 2) {
+            n = N.floor();
+          } else {
+            n = 1;
+          }
+
+          double dw = width - (n * (desiredItemWidth + minSpacing) + minSpacing);
+
+          itemWidth = desiredItemWidth + (dw / n) * (desiredItemWidth / (desiredItemWidth + minSpacing));
+
+          spacing = (width - itemWidth * n) / (n + 1);
+        }
+
+        final List<List<Widget>> colsChildren = [];
+        colsChildren.addAll(List.generate(
+            n,
+            (index) => <Widget>[
+                  SizedBox(
+                    height: spacing,
+                  )
+                ]));
+
+        //
+        for (int j = 0; j < children.length; j++) {
+          final index = j % n;
+          colsChildren[index].add(children[j]);
+          colsChildren[index].add(SizedBox(
+            height: spacing,
+          ));
+        }
+
+        final cols = <Widget>[];
+
+        cols.add(SizedBox(
+          width: spacing,
+        ));
+        //
+        for (int i = 0; i < colsChildren.length; i++) {
+          cols.add(SizedBox(
+            width: itemWidth,
+            child: Column(
+              children: colsChildren[i],
+            ),
+          ));
+          cols.add(SizedBox(
+            width: spacing,
+          ));
+        }
+
+        return scroll
+            ? SingleChildScrollView(
+                physics: physics,
+                child: Row(
+                  crossAxisAlignment: crossAxisAlignment,
+                  children: cols,
+                ),
+              )
+            : Row(
+                crossAxisAlignment: crossAxisAlignment,
+                children: cols,
+              );
+      },
+    );
   }
 }
 
