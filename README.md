@@ -123,6 +123,12 @@ The same as the `ResponsiveGridList`, but arranges items in columns inside one b
 
 `ResponsiveWidget` , `ResponsiveBuilder` and `responsiveValue()`
 
+provide a custom responsive Widget, Builder or a single value, for every size tier
+
+`ResponsiveLocalWidget` and `ResponsiveLocalBuilder`
+
+provide a responsive Widget or Builder for its own width, not the viewport's, they are just wrappers on top of flutter `LayoutBuilder`
+
 ### Override breakpoints
 
 Add before attach App widget 

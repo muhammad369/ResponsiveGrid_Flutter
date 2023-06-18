@@ -1,3 +1,8 @@
+## [2.4.0] - Jun 18, 2023
+
+* `ResponsiveLocalWidget` and `ResponsiveLocalBuilder`
+provide a responsive Widget or Builder for its own width, not the viewport's, they are just wrappers on top of flutter `LayoutBuilder`
+
 ## [2.3.0] - Jun 8, 2023
 
 * `ResponsiveStaggeredGridList`

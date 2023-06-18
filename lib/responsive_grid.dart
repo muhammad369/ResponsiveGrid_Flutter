@@ -497,3 +497,73 @@ T responsiveValue<T>(BuildContext context, {required T xs, T? sm, T? md, T? lg, 
   }
   return xs;
 }
+
+// local responsive
+
+class ResponsiveWidgetConfig{
+  final double upToWidth;
+  final Widget child;
+
+  ResponsiveWidgetConfig({required this.upToWidth, required this.child});
+
+}
+
+class ResponsiveBuilderConfig{
+  final double upToWidth;
+  final Function(BuildContext context, Widget child) builder;
+
+  ResponsiveBuilderConfig({required this.upToWidth, required this.builder});
+
+}
+
+class ResponsiveLocalWidget extends StatelessWidget{
+
+  final List<ResponsiveWidgetConfig> configs;
+
+  /// a widget that changes according to its own width,
+  /// the configs are assumed to be provided in ascending order
+  ResponsiveLocalWidget({Key? key, required this.configs}) : super(key: key){
+    assert(configs.isNotEmpty);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints){
+      for(var config in configs){
+        if(constraints.maxWidth <= config.upToWidth) {
+          return config.child;
+        }
+      }
+      //
+      return configs.last.child;
+    });
+  }
+
+}
+
+
+class ResponsiveLocalBuilder extends StatelessWidget{
+
+  final List<ResponsiveBuilderConfig> configs;
+  final Widget child;
+
+  /// a widget that changes according to its own width,
+  /// the configs are assumed to be provided in ascending order
+  ResponsiveLocalBuilder({Key? key, required this.configs, required this.child}) : super(key: key){
+    assert(configs.isNotEmpty);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints){
+      for(var config in configs){
+        if(constraints.maxWidth <= config.upToWidth) {
+          return config.builder(context, child);
+        }
+      }
+      //
+      return configs.last.builder(context, child);
+    });
+  }
+
+}

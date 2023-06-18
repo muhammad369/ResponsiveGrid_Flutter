@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: _buildStaggeredGridList());
+        body: _buildResponsiveLocalBuilder());
   }
 
   Widget _buildGridList() {
@@ -168,12 +168,30 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _resposiveBuilderTest() {
     return Center(
         child: ResponsiveBuilder(
-            child: const Text('test text', style: TextStyle(fontSize: 30),),
-            xs: (_, child) => Container(alignment: Alignment.topRight, child: child,),
-            sm: (_, child) => Container(alignment: Alignment.topLeft, child: child,),
-            md: (_, child) => Container(alignment: Alignment.center, child: child,),
-            lg: (_, child) => Container(alignment: Alignment.bottomRight, child: child,),
-            xl: (_, child) => Container(alignment: Alignment.bottomLeft, child: child,)));
+            child: const Text(
+              'test text',
+              style: TextStyle(fontSize: 30),
+            ),
+            xs: (_, child) => Container(
+                  alignment: Alignment.topRight,
+                  child: child,
+                ),
+            sm: (_, child) => Container(
+                  alignment: Alignment.topLeft,
+                  child: child,
+                ),
+            md: (_, child) => Container(
+                  alignment: Alignment.center,
+                  child: child,
+                ),
+            lg: (_, child) => Container(
+                  alignment: Alignment.bottomRight,
+                  child: child,
+                ),
+            xl: (_, child) => Container(
+                  alignment: Alignment.bottomLeft,
+                  child: child,
+                )));
   }
 
   Widget _buildStaggeredGridList() {
@@ -191,4 +209,21 @@ class _MyHomePageState extends State<MyHomePage> {
         }).toList());
   }
 
+  Widget _buildResponsiveLocalBuilder() {
+    return ResponsiveLocalBuilder(
+      child: Container(
+        width: 100,
+        height: 100,
+        color: Colors.blue,
+      ),
+      configs: [500, 600, 700, 900]
+          .map((e) => ResponsiveBuilderConfig(
+              upToWidth: e.toDouble(),
+              builder: (BuildContext context, Widget child) => Center(
+                      child: Column(
+                    children: [Text(e.toString()), child],
+                  ))))
+          .toList(),
+    );
+  }
 }
