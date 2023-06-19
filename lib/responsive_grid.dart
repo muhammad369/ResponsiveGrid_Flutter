@@ -567,3 +567,38 @@ class ResponsiveLocalBuilder extends StatelessWidget{
   }
 
 }
+
+
+class ResponsiveLayoutBuilderConfig{
+  final double upToWidth;
+  final Function(BuildContext context, List<Widget> children) builder;
+
+  ResponsiveLayoutBuilderConfig({required this.upToWidth, required this.builder});
+
+}
+
+class ResponsiveLocalLayoutBuilder extends StatelessWidget{
+
+  final List<ResponsiveLayoutBuilderConfig> configs;
+  final List<Widget> children;
+
+  /// a widget that changes according to its own width,
+  /// the configs are assumed to be provided in ascending order
+  ResponsiveLocalLayoutBuilder({Key? key, required this.configs, required this.children}) : super(key: key){
+    assert(configs.isNotEmpty);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints){
+      for(var config in configs){
+        if(constraints.maxWidth <= config.upToWidth) {
+          return config.builder(context, children);
+        }
+      }
+      //
+      return configs.last.builder(context, children);
+    });
+  }
+
+}

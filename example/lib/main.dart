@@ -210,19 +210,19 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildResponsiveLocalBuilder() {
-    return ResponsiveLocalBuilder(
-      child: Container(
+    return ResponsiveLocalLayoutBuilder(
+      children: [Container(
         width: 100,
         height: 100,
         color: Colors.blue,
-      ),
+      )],
       configs: [500, 600, 700, 900]
-          .map((e) => ResponsiveBuilderConfig(
+          .map((e) => ResponsiveLayoutBuilderConfig(
               upToWidth: e.toDouble(),
-              builder: (BuildContext context, Widget child) => Center(
-                      child: Column(
-                    children: [Text(e.toString()), child],
-                  ))))
+              builder: ( context,  children) =>
+                      Column(
+                    children: children)
+                  ))
           .toList(),
     );
   }
