@@ -1,5 +1,7 @@
 # responsive_grid
 
+![Pub Version](https://img.shields.io/pub/v/responsive_grid)
+
 Responsive Grid Layout and List for Flutter
 
 ### Responsive Grid Layout
