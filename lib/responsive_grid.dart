@@ -480,6 +480,41 @@ class ResponsiveBuilder extends StatelessWidget {
   }
 }
 
+/// a builder for certain tier applies also for larger tiers, so you must set xs at least
+class ResponsiveLayoutBuilder extends StatelessWidget {
+  final List<Widget> children;
+  final Function(BuildContext context, List<Widget> children)? sm, md, lg, xl;
+  final Function(BuildContext context, List<Widget> children) xs;
+
+  const ResponsiveLayoutBuilder({
+    Key? key,
+    required this.children,
+    required this.xs,
+    this.sm,
+    this.md,
+    this.lg,
+    this.xl,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var w = MediaQuery.of(context).size.width;
+    if (w >= ResponsiveGridBreakpoints.value.lg && xl != null) {
+      return xl!(context, children);
+    }
+    if (w >= ResponsiveGridBreakpoints.value.md && lg != null) {
+      return lg!(context, children);
+    }
+    if (w >= ResponsiveGridBreakpoints.value.sm && md != null) {
+      return md!(context, children);
+    }
+    if (w >= ResponsiveGridBreakpoints.value.xs && sm != null) {
+      return sm!(context, children);
+    }
+    return xs(context, children);
+  }
+}
+
 /// a value for certain tier applies also for larger tiers unless overridden, so you must set xs at least
 T responsiveValue<T>(BuildContext context, {required T xs, T? sm, T? md, T? lg, T? xl}) {
   var w = MediaQuery.of(context).size.width;
@@ -500,37 +535,41 @@ T responsiveValue<T>(BuildContext context, {required T xs, T? sm, T? md, T? lg, 
 
 // local responsive
 
-class ResponsiveWidgetConfig{
+class ResponsiveWidgetConfig {
   final double upToWidth;
   final Widget child;
 
   ResponsiveWidgetConfig({required this.upToWidth, required this.child});
-
 }
 
-class ResponsiveBuilderConfig{
+class ResponsiveBuilderConfig {
   final double upToWidth;
   final Function(BuildContext context, Widget child) builder;
 
   ResponsiveBuilderConfig({required this.upToWidth, required this.builder});
-
 }
 
-class ResponsiveLocalWidget extends StatelessWidget{
-
+class ResponsiveLocalWidget extends StatelessWidget {
   final List<ResponsiveWidgetConfig> configs;
 
   /// a widget that changes according to its own width,
   /// the configs are assumed to be provided in ascending order
-  ResponsiveLocalWidget({Key? key, required this.configs}) : super(key: key){
+  ResponsiveLocalWidget({Key? key, required this.configs}) : super(key: key) {
     assert(configs.isNotEmpty);
   }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints){
-      for(var config in configs){
-        if(constraints.maxWidth <= config.upToWidth) {
+    return LayoutBuilder(builder: (context, constraints) {
+      if (constraints.hasInfiniteWidth) {
+        print(
+          "ResponsiveGrid: Warning, You're using the ResponsiveLocalWidget inside an unbounded width parent, "
+          "Your configuration is useless",
+        );
+      }
+
+      for (var config in configs) {
+        if (constraints.maxWidth <= config.upToWidth) {
           return config.child;
         }
       }
@@ -538,26 +577,31 @@ class ResponsiveLocalWidget extends StatelessWidget{
       return configs.last.child;
     });
   }
-
 }
 
-
-class ResponsiveLocalBuilder extends StatelessWidget{
-
+class ResponsiveLocalBuilder extends StatelessWidget {
   final List<ResponsiveBuilderConfig> configs;
   final Widget child;
 
   /// a widget that changes according to its own width,
   /// the configs are assumed to be provided in ascending order
-  ResponsiveLocalBuilder({Key? key, required this.configs, required this.child}) : super(key: key){
+  ResponsiveLocalBuilder({Key? key, required this.configs, required this.child}) : super(key: key) {
     assert(configs.isNotEmpty);
   }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints){
-      for(var config in configs){
-        if(constraints.maxWidth <= config.upToWidth) {
+    return LayoutBuilder(builder: (context, constraints) {
+
+      if (constraints.hasInfiniteWidth) {
+        print(
+          "ResponsiveGrid: Warning, You're using the ResponsiveLocalBuilder inside an unbounded width parent, "
+              "Your configuration is useless",
+        );
+      }
+
+      for (var config in configs) {
+        if (constraints.maxWidth <= config.upToWidth) {
           return config.builder(context, child);
         }
       }
@@ -565,34 +609,30 @@ class ResponsiveLocalBuilder extends StatelessWidget{
       return configs.last.builder(context, child);
     });
   }
-
 }
 
-
-class ResponsiveLayoutBuilderConfig{
+class ResponsiveLayoutBuilderConfig {
   final double upToWidth;
   final Function(BuildContext context, List<Widget> children) builder;
 
   ResponsiveLayoutBuilderConfig({required this.upToWidth, required this.builder});
-
 }
 
-class ResponsiveLocalLayoutBuilder extends StatelessWidget{
-
+class ResponsiveLocalLayoutBuilder extends StatelessWidget {
   final List<ResponsiveLayoutBuilderConfig> configs;
   final List<Widget> children;
 
   /// a widget that changes according to its own width,
   /// the configs are assumed to be provided in ascending order
-  ResponsiveLocalLayoutBuilder({Key? key, required this.configs, required this.children}) : super(key: key){
+  ResponsiveLocalLayoutBuilder({Key? key, required this.configs, required this.children}) : super(key: key) {
     assert(configs.isNotEmpty);
   }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints){
-      for(var config in configs){
-        if(constraints.maxWidth <= config.upToWidth) {
+    return LayoutBuilder(builder: (context, constraints) {
+      for (var config in configs) {
+        if (constraints.maxWidth <= config.upToWidth) {
           return config.builder(context, children);
         }
       }
@@ -600,5 +640,4 @@ class ResponsiveLocalLayoutBuilder extends StatelessWidget{
       return configs.last.builder(context, children);
     });
   }
-
 }
