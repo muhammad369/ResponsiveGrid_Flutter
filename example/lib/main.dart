@@ -1,3 +1,4 @@
+import 'package:example/example_page.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: homeWidget ?? const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: homeWidget ?? const MyHomePage(title: 'ResponsiveGrid Examples'),
     );
   }
 }
@@ -39,17 +40,56 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: _buildResponsiveLocalBuilder());
+        body: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+
+              children: [
+                _buildTestButtonItem(context, _buildGridLayout(), "Responsive Grid Rows"),
+                _buildTestButtonItem(context, _buildGridLayout_testCrossAlign(), "Grid Layout (crossAxisAlignment)"),
+                _buildTestButtonItem(context, _buildGridList(), "Responsive Grid List"),
+                _buildTestButtonItem(context, _buildGridList_rowMainAxisAlign(), "Grid List (rowMainAxisAlignment)"),
+                _buildTestButtonItem(context, _buildGridList_variableItemsHeights(), "variable items heights"),
+                _buildTestButtonItem(context, _buildStaggeredGridList(), "StaggeredGridList"),
+                _buildTestButtonItem(context, _resposiveWidgetTest(), "ResponsiveWidget"),
+                _buildTestButtonItem(context, _resposiveValueTest(), "responsiveValue method"),
+                _buildTestButtonItem(context, _resposiveBuilderTest(), "ResponsiveBuilder"),
+                _buildTestButtonItem(context, _buildResponsiveLocalWidget(), "ResponsiveLocalWidget"),
+              ],
+            ),
+          ),
+        ));
+  }
+
+  // region widgets creation methods
+
+  Widget _buildTestButtonItem(BuildContext context, Widget widget, String name) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton(
+
+          onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ExamplePage(
+                          title: name,
+                          child: widget,
+                        )),
+              ),
+          child: Text(name)),
+    );
   }
 
   Widget _buildGridList() {
     return ResponsiveGridList(
-        rowMainAxisAlignment: MainAxisAlignment.center,
+
         desiredItemWidth: 100,
         minSpacing: 10,
         children: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map((i) {
           return Container(
-            height: ((i % 5) + 1) * 100.0,
+            height:100.0,
             alignment: const Alignment(0, 0),
             color: Colors.cyan,
             child: Text(i.toString()),
@@ -118,12 +158,42 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Widget _buildGridList_rowMainAxisAlign() {
+    return ResponsiveGridList(
+        rowMainAxisAlignment: MainAxisAlignment.center,
+        desiredItemWidth: 100,
+        minSpacing: 10,
+        children: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map((i) {
+          return Container(
+            height:100.0,
+            alignment: const Alignment(0, 0),
+            color: Colors.cyan,
+            child: Text(i.toString()),
+          );
+        }).toList());
+  }
+
+  Widget _buildGridList_variableItemsHeights() {
+    return ResponsiveGridList(
+        rowMainAxisAlignment: MainAxisAlignment.center,
+        desiredItemWidth: 100,
+        minSpacing: 10,
+        children: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map((i) {
+          return Container(
+            height: ((i % 5) + 1) * 100.0,
+            alignment: const Alignment(0, 0),
+            color: Colors.cyan,
+            child: Text(i.toString()),
+          );
+        }).toList());
+  }
+
   Widget _buildGridLayout_testCrossAlign() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         ResponsiveGridRow(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ResponsiveGridCol(
               xs: 6,
@@ -169,7 +239,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Center(
         child: ResponsiveBuilder(
             child: const Text(
-              'test text',
+              'child',
               style: TextStyle(fontSize: 30),
             ),
             xs: (_, child) => Container(
@@ -196,7 +266,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildStaggeredGridList() {
     return ResponsiveStaggeredGridList(
-        //crossAxisAlignment: CrossAxisAlignment.end,
         desiredItemWidth: 100,
         minSpacing: 10,
         children: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map((i) {
@@ -209,21 +278,16 @@ class _MyHomePageState extends State<MyHomePage> {
         }).toList());
   }
 
-  Widget _buildResponsiveLocalBuilder() {
-    return ResponsiveLocalLayoutBuilder(
-      children: [Container(
-        width: 100,
-        height: 100,
-        color: Colors.blue,
-      )],
+  Widget _buildResponsiveLocalWidget() {
+    return ResponsiveLocalWidget(
+
       configs: [500, 600, 700, 900]
-          .map((e) => ResponsiveLayoutBuilderConfig(
-              upToWidth: e.toDouble(),
-              builder: ( context,  children) =>
-                      Column(
-                    children: children)
-                  ))
+          .map((e) => ResponsiveWidgetConfig(
+              upToWidth: e.toDouble(), child: Center(child: Text(e.toString()))))
           .toList(),
     );
   }
+
+  // endregion
+
 }

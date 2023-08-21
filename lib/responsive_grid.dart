@@ -631,6 +631,14 @@ class ResponsiveLocalLayoutBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
+
+      if (constraints.hasInfiniteWidth) {
+        print(
+          "ResponsiveGrid: Warning, You're using the ResponsiveLocalLayoutBuilder inside an unbounded width parent, "
+              "Your configuration is useless",
+        );
+      }
+
       for (var config in configs) {
         if (constraints.maxWidth <= config.upToWidth) {
           return config.builder(context, children);
