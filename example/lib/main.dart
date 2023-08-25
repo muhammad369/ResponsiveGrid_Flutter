@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
               children: [
                 _buildTestButtonItem(context, _buildGridLayout(), "Responsive Grid Rows"),
-                _buildTestButtonItem(context, _buildGridLayout_testCrossAlign(), "Grid Layout (crossAxisAlignment)"),
+                _buildTestButtonItem(context, _buildGridLayout_testCrossAlign(), "Responsive Grid Rows (crossAxisAlignment)"),
                 _buildTestButtonItem(context, _buildGridList(), "Responsive Grid List"),
                 _buildTestButtonItem(context, _buildGridList_rowMainAxisAlign(), "Grid List (rowMainAxisAlignment)"),
                 _buildTestButtonItem(context, _buildGridList_variableItemsHeights(), "variable items heights"),

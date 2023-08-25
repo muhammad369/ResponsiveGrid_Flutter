@@ -31,9 +31,6 @@ _GridTier _currentSize(BuildContext context) {
   final mediaQueryData = MediaQuery.of(context);
   final width = mediaQueryData.size.width;
 
-//  print(
-//      "INFO orientation: ${mediaQueryData.orientation} , width: ${mediaQueryData.size.width}, height: ${mediaQueryData.size.height}");
-
   if (width < breakpoints.xs) {
     return _GridTier.xs;
   } else if (width < breakpoints.sm) {
@@ -108,7 +105,7 @@ class ResponsiveGridRow extends StatelessWidget {
 }
 
 class ResponsiveGridCol extends StatelessWidget {
-  final _config = <int?>[]..length = 5;
+  final _config = [0,0,0,0,0];
   final Widget child;
 
   ResponsiveGridCol({
@@ -127,16 +124,19 @@ class ResponsiveGridCol extends StatelessWidget {
     _config[_GridTier.xl.index] = xl ?? _config[_GridTier.lg.index];
   }
 
-  int? currentConfig(BuildContext context) {
+  int currentConfig(BuildContext context) {
     return _config[_currentSize(context).index];
   }
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: currentConfig(context) ?? 1,
-      child: child,
-    );
+    final configFlex = currentConfig(context);
+    return configFlex == 0
+        ? Container()
+        : Expanded(
+            flex: configFlex,
+            child: child,
+          );
   }
 }
 
@@ -483,8 +483,8 @@ class ResponsiveBuilder extends StatelessWidget {
 /// a builder for certain tier applies also for larger tiers, so you must set xs at least
 class ResponsiveLayoutBuilder extends StatelessWidget {
   final List<Widget> children;
-  final Function(BuildContext context, List<Widget> children)? sm, md, lg, xl;
-  final Function(BuildContext context, List<Widget> children) xs;
+  final Widget Function(BuildContext context, List<Widget> children)? sm, md, lg, xl;
+  final Widget Function(BuildContext context, List<Widget> children) xs;
 
   const ResponsiveLayoutBuilder({
     Key? key,
@@ -544,7 +544,7 @@ class ResponsiveWidgetConfig {
 
 class ResponsiveBuilderConfig {
   final double upToWidth;
-  final Function(BuildContext context, Widget child) builder;
+  final Widget Function(BuildContext context, Widget child) builder;
 
   ResponsiveBuilderConfig({required this.upToWidth, required this.builder});
 }
@@ -592,11 +592,10 @@ class ResponsiveLocalBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-
       if (constraints.hasInfiniteWidth) {
         print(
           "ResponsiveGrid: Warning, You're using the ResponsiveLocalBuilder inside an unbounded width parent, "
-              "Your configuration is useless",
+          "Your configuration is useless",
         );
       }
 
@@ -613,7 +612,7 @@ class ResponsiveLocalBuilder extends StatelessWidget {
 
 class ResponsiveLayoutBuilderConfig {
   final double upToWidth;
-  final Function(BuildContext context, List<Widget> children) builder;
+  final Widget Function(BuildContext context, List<Widget> children) builder;
 
   ResponsiveLayoutBuilderConfig({required this.upToWidth, required this.builder});
 }
@@ -631,11 +630,10 @@ class ResponsiveLocalLayoutBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-
       if (constraints.hasInfiniteWidth) {
         print(
           "ResponsiveGrid: Warning, You're using the ResponsiveLocalLayoutBuilder inside an unbounded width parent, "
-              "Your configuration is useless",
+          "Your configuration is useless",
         );
       }
 
