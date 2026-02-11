@@ -1,10 +1,8 @@
 # responsive_grid
 
-![Pub Version](https://img.shields.io/pub/v/responsive_grid)
+[![pub package](https://img.shields.io/pub/v/responsive_grid.svg)](https://pub.dev/packages/responsive_grid)
 
 Responsive Grid Layout, List and many Utilities for Flutter, to achieve good UI look and feel for different screen sizes
-
-**<<  Help is needed to implement required features by package users, and also to respond to open issues, I don't have much spare time  >>**
 
 ## Responsive Grid Layout
 
