@@ -49,6 +49,7 @@ class ResponsiveGridRow extends StatelessWidget {
   final List<ResponsiveGridCol> children;
   final CrossAxisAlignment crossAxisAlignment;
   final int rowSegments;
+  final bool setSameHeightForChildrenInRow = false;
 
   const ResponsiveGridRow({
     required this.children,
@@ -65,7 +66,7 @@ class ResponsiveGridRow extends StatelessWidget {
     var cols = <Widget>[];
 
     for (var col in children) {
-      var colWidth = col.currentConfig(context) ?? 1;
+      var colWidth = col.currentConfig(context);
       //
       if (accumulatedWidth + colWidth > rowSegments) {
         if (accumulatedWidth < rowSegments) {
@@ -73,10 +74,21 @@ class ResponsiveGridRow extends StatelessWidget {
             flex: rowSegments - accumulatedWidth,
           ));
         }
-        rows.add(Row(
-          crossAxisAlignment: this.crossAxisAlignment,
-          children: cols,
-        ));
+
+        if(setSameHeightForChildrenInRow){
+          rows.add(IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: crossAxisAlignment,
+              children: cols,
+            ),
+          ));
+        }else{
+          rows.add(Row(
+            crossAxisAlignment: crossAxisAlignment,
+            children: cols,
+          ));
+        }
+
         // clear
         cols = <Widget>[];
         accumulatedWidth = 0;
@@ -92,10 +104,19 @@ class ResponsiveGridRow extends StatelessWidget {
           flex: rowSegments - accumulatedWidth,
         ));
       }
-      rows.add(Row(
-        crossAxisAlignment: crossAxisAlignment,
-        children: cols,
-      ));
+      if(setSameHeightForChildrenInRow){
+        rows.add(IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: crossAxisAlignment,
+            children: cols,
+          ),
+        ));
+      }else{
+        rows.add(Row(
+          crossAxisAlignment: crossAxisAlignment,
+          children: cols,
+        ));
+      }
     }
 
     return Column(
